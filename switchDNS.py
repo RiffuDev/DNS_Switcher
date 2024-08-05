@@ -79,8 +79,8 @@ def change_dns_settings(interface_name, mode, primary_dns=None, alternate_dns=No
 
 def main():
     interface_name = "Wi-Fi"  # Change this to match your network interface name
-    primary_dns_default = "8.8.8.8"  # Default primary DNS
-    alternate_dns_default = "8.8.4.4"  # Default alternate DNS
+    primary_dns_default = "9.9.9.9"  # Default primary DNS
+    alternate_dns_default = "9.0.9.1"  # Default alternate DNS
 
     mode = "NULL"
 
@@ -123,7 +123,7 @@ def main():
             change_dns_settings(interface_name,"man", sys.argv[2], sys.argv[3])
 
     else:
-        change_dns_settings(interface_name, sys.argv[1])
+        change_dns_settings(interface_name, sys.argv[1], primary_dns_default, alternate_dns_default)
 
 if __name__ == "__main__":
     main()
