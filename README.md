@@ -42,7 +42,10 @@ Exmaple:
 ```
 
 
-
 ## Reference Images
+#### Flip:
 ![Alt text](https://github.com/RiffuDev/DNS_Switcher/blob/main/refs/flip.png)
+
+#### Change:
+![Alt text](https://github.com/RiffuDev/DNS_Switcher/blob/main/refs/change.png)
 
