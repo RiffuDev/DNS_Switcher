@@ -4,8 +4,8 @@ DNS Server Assignment Switcher
 A Python CLI tool to check and switch DNS Server in Windows. Can be used for AdBlocking and other purposes ;)
 
 
+> Note: Admin privileges may require
 ## API Reference
-
 ```cmd
 switchDNS.py <Parameter>
 ```
@@ -14,8 +14,15 @@ Examaple:
 python switchDNS.py flip 
 ```
 ### Parameter:
+#### Default Parameter is flip
 
-#### Check the current DNS settings
+#### Help
+
+```cmd
+  help
+```
+
+#### Check for the current DNS settings
 
 ```cmd
   check
@@ -41,11 +48,9 @@ Exmaple:
   switchDNS.py man 8.8.8.8 8.0.0.8
 ```
 
-
 ## Reference Images
 #### Flip:
 ![Alt text](https://github.com/RiffuDev/DNS_Switcher/blob/main/refs/flip.png)
 
 #### Change:
 ![Alt text](https://github.com/RiffuDev/DNS_Switcher/blob/main/refs/change.png)
-

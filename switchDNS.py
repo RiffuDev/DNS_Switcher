@@ -47,6 +47,7 @@ def change_dns_settings(interface_name, mode, primary_dns=None, alternate_dns=No
         print("Unable to retrieve current DNS servers.")
 
     try:
+        print(mode.lower())
         if mode.lower() == "man":            
             # Set manual DNS
             run_command(["netsh", "interface", "ipv4", "set", "dns", 
@@ -76,40 +77,53 @@ def change_dns_settings(interface_name, mode, primary_dns=None, alternate_dns=No
         print(f"Failed to change DNS settings: {str(e)}")
         print("Make sure you're running the script as administrator.")
 
-if __name__ == "__main__":
+def main():
     interface_name = "Wi-Fi"  # Change this to match your network interface name
     primary_dns_default = "8.8.8.8"  # Default primary DNS
     alternate_dns_default = "8.8.4.4"  # Default alternate DNS
 
+    mode = "NULL"
+
     if len(sys.argv) < 2:
-        print("Usage: python script_name.py [man|auto|check|change primary_dns alternate_dns]")
+        print("Default: Flip mode from the Current...")
+        mode = "flip"
     else:
-        if sys.argv[1].lower() == "check":
-            current_mode = get_current_dns_mode(interface_name)
-            print(f"Current DNS mode: {current_mode}")
-            current_servers = get_current_dns_servers(interface_name)
-            if current_servers:
-                print(f"Current DNS servers: {', '.join(current_servers)}")
-            else:
-                print("Unable to retrieve current DNS servers.")
+        mode = sys.argv[1].lower()
 
-        elif sys.argv[1].lower() == "flip":
-            current_mode = get_current_dns_mode(interface_name)
-            if(current_mode == "auto"):
-                print(f"Fliping the mode to manual")
-                change_dns_settings(interface_name,"man", primary_dns_default, alternate_dns_default)
-            elif(current_mode == "man"):
-                print(f"Fliping the mode to auto")
-                change_dns_settings(interface_name,"auto", primary_dns_default, alternate_dns_default)
-            else:
-                print(f"Error: Current Dns Mode {current_mode}, Cant change!")
+    if mode == "help":
+        print("Usage: python script_name.py [man|auto|check|change <primary_dns> <alternate_dns>]")
+        print("More detail at: https://github.com/RiffuDev/DNS_Switcher")
+        return
 
-        elif sys.argv[1].lower() == "change":
-            if len(sys.argv) != 4:
-                print("Usage for change: python script_name.py change primary_dns alternate_dns")
-                print("Example: python script_name.py change 9.9.9.9 1.1.1.1")
-            else:
-                change_dns_settings(interface_name,"man", sys.argv[2], sys.argv[3])
-
+    elif mode == "check":
+        current_mode = get_current_dns_mode(interface_name)
+        print(f"Current DNS mode: {current_mode}")
+        current_servers = get_current_dns_servers(interface_name)
+        if current_servers:
+            print(f"Current DNS servers: {', '.join(current_servers)}")
         else:
-            change_dns_settings(interface_name, sys.argv[1])
+            print("Unable to retrieve current DNS servers.")
+
+    elif mode == "flip":
+        current_mode = get_current_dns_mode(interface_name)
+        if(current_mode == "auto"):
+            print(f"Fliping the mode to manual")
+            change_dns_settings(interface_name,"man", primary_dns_default, alternate_dns_default)
+        elif(current_mode == "man"):
+            print(f"Fliping the mode to auto")
+            change_dns_settings(interface_name,"auto", primary_dns_default, alternate_dns_default)
+        else:
+            print(f"Error: Current Dns Mode {current_mode}, Could'nt change!")
+
+    elif mode == "change":
+        if len(sys.argv) != 4:
+            print("Usage for change: python script_name.py change primary_dns alternate_dns")
+            print("Example: python script_name.py change 9.9.9.9 1.1.1.1")
+        else:
+            change_dns_settings(interface_name,"man", sys.argv[2], sys.argv[3])
+
+    else:
+        change_dns_settings(interface_name, sys.argv[1])
+
+if __name__ == "__main__":
+    main()
