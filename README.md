@@ -40,3 +40,9 @@ Exmaple:
 ```cmd
   switchDNS.py man 8.8.8.8 8.0.0.8
 ```
+
+
+
+## Reference Images
+![Alt text](https://github.com/RiffuDev/DNS_Switcher/blob/main/refs/flip.png)
+
